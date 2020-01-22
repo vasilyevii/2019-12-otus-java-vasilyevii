@@ -5,6 +5,8 @@ import java.util.*;
 public class DIYArrayList<T> implements List<T> {
 
     private Object[] elementData;
+    private int size = 0;
+
 
     public DIYArrayList() {
         this.elementData = new Object[]{};
@@ -13,6 +15,7 @@ public class DIYArrayList<T> implements List<T> {
     public DIYArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
+            this.size = initialCapacity;
         } else if (initialCapacity == 0) {
             this.elementData = new Object[]{};
         } else {
@@ -22,8 +25,13 @@ public class DIYArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        elementData = Arrays.copyOf(elementData, elementData.length + 1);
-        elementData[elementData.length - 1] = t;
+
+        if (size++ >= elementData.length) {
+            int addLength = elementData.length >>> 1;
+            elementData = Arrays.copyOf(elementData, elementData.length + (addLength == 0 ? 10 : addLength));
+        }
+
+        elementData[size - 1] = t;
         return true;
     }
 
@@ -35,7 +43,7 @@ public class DIYArrayList<T> implements List<T> {
 
     @Override
     public int size() {
-        return elementData.length;
+        return size;
     }
 
     @Override
@@ -110,7 +118,7 @@ public class DIYArrayList<T> implements List<T> {
 
     @Override
     public void sort(Comparator<? super T> c) {
-        Arrays.sort((T[]) elementData, 0, elementData.length, c);
+        Arrays.sort((T[]) elementData, 0, size, c);
     }
 
     @Override
