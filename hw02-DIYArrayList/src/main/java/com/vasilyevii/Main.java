@@ -12,7 +12,7 @@ public class Main {
         List<Integer> myArrayList = new DIYArrayList<>();
 
         // Collections.addAll(Collection<? super T> c, T... elements)
-        Collections.addAll(myArrayList, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21);
+        Collections.addAll(myArrayList, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
         System.out.println(myArrayList);
 
         // Collections.static <T> void copy(List<? super T> dest, List<? extends T> src)

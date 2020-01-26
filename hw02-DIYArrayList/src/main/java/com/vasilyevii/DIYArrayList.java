@@ -6,6 +6,7 @@ public class DIYArrayList<T> implements List<T> {
 
     private Object[] elementData;
     private int size = 0;
+    private static final int INITIAL_SIZE = 10;
 
 
     public DIYArrayList() {
@@ -25,20 +26,36 @@ public class DIYArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-
         if (size++ >= elementData.length) {
-            int addLength = elementData.length >>> 1;
-            elementData = Arrays.copyOf(elementData, elementData.length + (addLength == 0 ? 10 : addLength));
+            grow();
         }
-
         elementData[size - 1] = t;
         return true;
     }
 
+    private void grow() {
+        int addLength = elementData.length >>> 1;
+        if (addLength == 0) {
+            addLength = INITIAL_SIZE;
+        }
+        elementData = Arrays.copyOf(elementData, elementData.length + addLength);
+    }
+
     @Override
     public String toString() {
-        String str = Arrays.toString(elementData);
-        return "DIYArrayList{" + str.substring(1, str.length() - 1) + '}';
+
+        int iMax = size - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(String.valueOf(elementData[i]));
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
     }
 
     @Override
@@ -70,7 +87,7 @@ public class DIYArrayList<T> implements List<T> {
 
         @Override
         public T next() {
-            if (cursor >= elementData.length) throw new NoSuchElementException();
+            if (cursor >= size) throw new NoSuchElementException();
             return (T) elementData[cursor++];
         }
 
