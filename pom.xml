@@ -23,6 +23,7 @@
         <module>hw01-maven</module>
         <module>hw02-DIYArrayList</module>
         <module>hw03-GC</module>
+        <module>hw04-AutoLog</module>
     </modules>
 
     <properties>
