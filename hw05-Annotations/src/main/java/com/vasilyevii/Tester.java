@@ -1,6 +1,5 @@
 package com.vasilyevii;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,65 +8,78 @@ public class Tester {
 
     public static void runTest(String className) {
 
-        List<Method> beforeMethods = new ArrayList<>();
-        List<Method> testMethods = new ArrayList<>();
-        List<Method> afterMethods = new ArrayList<>();
+        Class<?> testClass;
 
         try {
-
-            Class<?> testClass = Class.forName(className + "Test");
-
-            Constructor<?> constructor = testClass.getConstructor();
-            Object obj = constructor.newInstance();
-
-            for (Method method : testClass.getDeclaredMethods()) {
-                if (method.isAnnotationPresent(Before.class)) {
-                    beforeMethods.add(method);
-                } else if (method.isAnnotationPresent(Test.class)) {
-                    testMethods.add(method);
-                } else if (method.isAnnotationPresent(After.class)) {
-                    afterMethods.add(method);
-                }
-            }
-
-            invokeMethod(beforeMethods, obj);
-            invokeMethodWithStat(testMethods, obj);
-            invokeMethod(afterMethods, obj);
-
+            testClass = Class.forName(className + "Test");
         } catch (Exception e) {
             e.printStackTrace();
+            return;
         }
 
-    }
-
-    private static void invokeMethod(List<Method> methods, Object obj) {
-
-        for (Method method : methods) {
-            try {
-                method.invoke(obj);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    private static void invokeMethodWithStat(List<Method> methods, Object obj) {
+        List<Method> beforeMethods = getClassMethodsByAnnotation(testClass, Before.class);
+        List<Method> afterMethods = getClassMethodsByAnnotation(testClass, After.class);
+        List<Method> testMethods = getClassMethodsByAnnotation(testClass, Test.class);
 
         int failedCount = 0;
 
-        for (Method method : methods) {
+        for (Method testMethod : testMethods) {
+
+            Object obj;
+
+            // getting a new object for each test method
             try {
-                method.invoke(obj);
+                obj = testClass.getConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
+            }
+
+            // if before method throws an exception then don't run the test and after method
+            try {
+                invokeMethods(beforeMethods, obj);
+            } catch (Exception e) {
+                e.printStackTrace();
+                failedCount++;
+                continue;
+            }
+
+            // invoke test method
+            try {
+                testMethod.invoke(obj);
             } catch (Exception e) {
                 e.printStackTrace();
                 failedCount++;
             }
+
+            // invoke after-methods even if the test was failed
+            try {
+                invokeMethods(afterMethods, obj);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
-        System.out.println("Total test: " + methods.size() + ", success: " + (methods.size() - failedCount) + ", fail: " + failedCount);
+        System.out.println("Total test: " + testMethods.size() + ", success: " + (testMethods.size() - failedCount) + ", fail: " + failedCount);
 
     }
 
+    private static void invokeMethods(List<Method> methods, Object obj) throws Exception {
+        for (Method method : methods) {
+            method.invoke(obj);
+        }
+    }
 
+    private static List<Method> getClassMethodsByAnnotation(Class testClass, Class annotationClass) {
+
+        var methods = new ArrayList<Method>();
+
+        for (Method method : testClass.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(annotationClass)) {
+                methods.add(method);
+            }
+        }
+        return methods;
+    }
 }
