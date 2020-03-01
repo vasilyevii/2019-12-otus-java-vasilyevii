@@ -1,12 +1,14 @@
 package com.vasilyevii;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 
 public class ATM {
 
-    private final TreeSet<Cell> cells = new TreeSet<>();
+    private final Set<Cell> cells = new TreeSet<>();
     private final int MAX_NUMBER_OF_BANKNOTES = 100;
 
     public ATM() {
@@ -24,7 +26,7 @@ public class ATM {
         return totalAmount;
     }
 
-    public HashMap<Denominations, Integer> deposit(HashMap<Denominations, Integer> banknotes) {
+    public Map<Denominations, Integer> deposit(Map<Denominations, Integer> banknotes) {
 
         var rejectedBanknotes = new HashMap<Denominations, Integer>();
 
