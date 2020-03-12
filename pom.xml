@@ -25,6 +25,7 @@
         <module>hw03-GC</module>
         <module>hw04-AutoLog</module>
         <module>hw05-Annotations</module>
+        <module>hw06-ATM</module>
     </modules>
 
     <properties>
