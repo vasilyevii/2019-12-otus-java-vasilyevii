@@ -1,6 +1,7 @@
 package com.vasilyevii;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -9,7 +10,7 @@ public class Main {
         ATM atm = new ATM();
 
         // deposit
-        HashMap<Denominations, Integer> banknotes = new HashMap<>();
+        Map<Denominations, Integer> banknotes = new HashMap<>();
         banknotes.put(Denominations.ONE_HUNDRED, 2);
         banknotes.put(Denominations.ONE_THOUSAND, 1);
 
