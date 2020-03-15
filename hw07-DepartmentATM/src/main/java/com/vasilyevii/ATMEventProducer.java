@@ -3,7 +3,7 @@ package com.vasilyevii;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ATMReset {
+public class ATMEventProducer {
 
     private final List<Listener> listeners = new ArrayList<>();
 
@@ -15,8 +15,8 @@ public class ATMReset {
         listeners.remove(listener);
     }
 
-    void event(String data) {
-        listeners.forEach(listener -> listener.restartATM());
+    void event(String event) {
+        listeners.forEach(listener -> listener.eventHandler(event));
     }
 
 }
