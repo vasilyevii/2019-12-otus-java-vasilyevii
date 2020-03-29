@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class DIYGson {
+class DIYGson {
 
-    public String toJson(Object obj) {
+    String toJson(Object obj) {
 
         StringBuilder json = new StringBuilder();
         serializeObject(obj, json, null);
@@ -18,8 +18,12 @@ public class DIYGson {
 
     private void serializeObject(Object obj, StringBuilder json, Object fieldName) {
 
+        if (obj == null) {
+            return;
+        }
+
         if (fieldName != null) {
-            json.append("\"" + fieldName + "\":");
+            json.append("\"").append(fieldName).append("\":");
         }
 
         if (obj.getClass().isArray()) {
@@ -36,8 +40,6 @@ public class DIYGson {
             json.append("]");
 
         } else if (obj instanceof Collection) {
-
-            Collection collection = (Collection) obj;
 
             json.append("[");
             Iterator iterator = ((Collection) obj).iterator();
@@ -73,7 +75,7 @@ public class DIYGson {
 
         } else if (obj instanceof String) {
 
-            json.append("\"" + obj + "\"");
+            json.append("\"").append(obj).append("\"");
 
         } else {
 
@@ -85,13 +87,16 @@ public class DIYGson {
                 if (!Modifier.isStatic(field.getModifiers()) && !Modifier.isTransient(field.getModifiers())) {
                     field.setAccessible(true);
                     try {
-                        serializeObject(field.get(obj), json, field.getName());
+                        Object fieldValue = field.get(obj);
+                        if (fieldValue != null) {
+                            serializeObject(field.get(obj), json, field.getName());
+                            if (i < fields.length - 1) {
+                                json.append(",");
+                            }
+                        }
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
-                }
-                if (i < fields.length - 1) {
-                    json.append(",");
                 }
             }
             json.append("}");

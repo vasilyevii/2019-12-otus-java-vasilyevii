@@ -2,13 +2,14 @@ package com.vasilyevii;
 
 import java.util.*;
 
-public class BagOfPrimitives {
+class BagOfPrimitives {
 
     private int a;
-    Object[] b;
-    List<Object> arrayList = new ArrayList<>() ;
-    TestClass testClass = new TestClass("some text");
-    Map<String, TestClass> map = new HashMap<>();
+    private String nullHere;
+    private Object[] b;
+    private List<Object> arrayList = new ArrayList<>() ;
+    private TestClass testClass = new TestClass("some text");
+    private Map<String, TestClass> map = new HashMap<>();
 
     public BagOfPrimitives() {
         this.b = new Object[]{"one", "two", new String[]{"three - one", "three - two"}};
