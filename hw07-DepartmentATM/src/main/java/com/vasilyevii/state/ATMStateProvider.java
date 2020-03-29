@@ -1,4 +1,9 @@
-package com.vasilyevii;
+package com.vasilyevii.state;
+
+import com.vasilyevii.state.ATMState;
+import com.vasilyevii.state.InitATMState;
+import com.vasilyevii.state.SuspendATMState;
+import com.vasilyevii.state.WorkingATMState;
 
 public class ATMStateProvider {
 

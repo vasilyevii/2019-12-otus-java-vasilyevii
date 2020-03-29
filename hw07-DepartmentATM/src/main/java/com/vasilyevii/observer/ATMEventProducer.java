@@ -1,4 +1,4 @@
-package com.vasilyevii;
+package com.vasilyevii.observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,15 +7,15 @@ public class ATMEventProducer {
 
     private final List<Listener> listeners = new ArrayList<>();
 
-    void addListener(Listener listener) {
+    public void addListener(Listener listener) {
         listeners.add(listener);
     }
 
-    void removeListener(Listener listener) {
+    public void removeListener(Listener listener) {
         listeners.remove(listener);
     }
 
-    void event(String event) {
+    public void event(String event) {
         listeners.forEach(listener -> listener.eventHandler(event));
     }
 

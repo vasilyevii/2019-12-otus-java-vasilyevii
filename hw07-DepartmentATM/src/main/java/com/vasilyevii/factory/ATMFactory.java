@@ -1,4 +1,4 @@
-package com.vasilyevii;
+package com.vasilyevii.factory;
 
 public class ATMFactory {
 

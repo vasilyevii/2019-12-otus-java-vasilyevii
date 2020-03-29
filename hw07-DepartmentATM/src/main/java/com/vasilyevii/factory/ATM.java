@@ -1,4 +1,8 @@
-package com.vasilyevii;
+package com.vasilyevii.factory;
+
+import com.vasilyevii.observer.Listener;
+import com.vasilyevii.state.ATMState;
+import com.vasilyevii.state.ATMStateProvider;
 
 abstract public class ATM implements Listener {
 
@@ -10,8 +14,8 @@ abstract public class ATM implements Listener {
         this.state = initState;
     }
 
-    public String getBalance() {
-        return this + " - Balance: " + cashBucket.getBalance();
+    public double getBalance() {
+        return cashBucket.getBalance();
     }
 
     public void deposit(double amount) {

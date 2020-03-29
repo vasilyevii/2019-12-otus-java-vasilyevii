@@ -1,8 +1,8 @@
-package com.vasilyevii;
+package com.vasilyevii.factory;
 
-public class CashBucketVendorB implements CashBucket {
+public class CashBucketVendorA implements CashBucket {
 
-    private String vendor = "B";
+    private String vendor = "A";
     private double balance = 0;
 
     @Override
@@ -24,4 +24,6 @@ public class CashBucketVendorB implements CashBucket {
     public String getVendor() {
         return vendor;
     }
+
+
 }

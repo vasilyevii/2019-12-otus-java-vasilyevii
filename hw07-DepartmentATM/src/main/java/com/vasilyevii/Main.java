@@ -1,5 +1,8 @@
 package com.vasilyevii;
 
+import com.vasilyevii.factory.ATM;
+import com.vasilyevii.factory.ATMFactory;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -12,23 +15,20 @@ public class Main {
         atms.add(ATMFactory.getATM("One", "B"));
         atms.add(ATMFactory.getATM("Two", "A"));
         atms.add(ATMFactory.getATM("Two", "B"));
-
         Department department = new Department(atms);
 
         // command
-        department.getATMsBalance();
+        department.printATMsBalance();
 
         // state
-        department.getATMsState();
+        department.printATMsState();
         atms.forEach(atm -> atm.changeState());
-        department.getATMsState();
+        department.printATMsState();
 
         // observer
-        ATMEventProducer atmEventProducer = new ATMEventProducer();
-        atms.forEach(atm -> atmEventProducer.addListener(atm));
-        atmEventProducer.event("restart");
+        department.restartATMs();
 
-        department.getATMsState();
+        department.printATMsState();
 
     }
 }

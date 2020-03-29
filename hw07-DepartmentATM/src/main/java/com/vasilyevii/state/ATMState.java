@@ -1,4 +1,4 @@
-package com.vasilyevii;
+package com.vasilyevii.state;
 
 public interface ATMState {
     public ATMState action();

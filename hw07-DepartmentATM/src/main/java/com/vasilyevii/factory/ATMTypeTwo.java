@@ -1,4 +1,6 @@
-package com.vasilyevii;
+package com.vasilyevii.factory;
+
+import com.vasilyevii.state.ATMStateProvider;
 
 public class ATMTypeTwo extends ATM {
 
