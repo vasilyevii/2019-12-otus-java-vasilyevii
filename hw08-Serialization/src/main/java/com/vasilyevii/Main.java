@@ -7,13 +7,13 @@ public class Main {
     public static void main(String[] args) {
 
         BagOfPrimitives obj = new BagOfPrimitives();
-        System.out.println(obj);
 
         DIYGson diyGson = new DIYGson();
+        Gson gson = new Gson();
+
         String diyJson = diyGson.toJson(obj);
         System.out.println("DIY   : " + diyJson);
 
-        Gson gson = new Gson();
         String json = gson.toJson(obj);
         System.out.println("Origin: " + json);
 
@@ -30,6 +30,16 @@ public class Main {
         } catch (Exception e) {
             System.out.println("Origin fall");
         }
+
+        System.out.println("DIY   : " + diyGson.toJson(null));
+        System.out.println("Origin: " + gson.toJson(null));
+
+        System.out.println("DIY   : " + diyGson.toJson('a'));
+        System.out.println("Origin: " + gson.toJson('a'));
+
+        System.out.println("DIY   : " + diyGson.toJson(new int[] {7, 8, 9}));
+        System.out.println("Origin: " + gson.toJson(new int[] {7, 8, 9}));
+
     }
 
 }

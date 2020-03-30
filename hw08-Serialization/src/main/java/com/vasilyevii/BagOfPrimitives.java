@@ -10,6 +10,7 @@ class BagOfPrimitives {
     private List<Object> arrayList = new ArrayList<>() ;
     private TestClass testClass = new TestClass("some text");
     private Map<String, TestClass> map = new HashMap<>();
+    private String badField = null;
 
     public BagOfPrimitives() {
         this.b = new Object[]{"one", "two", new String[]{"three - one", "three - two"}};

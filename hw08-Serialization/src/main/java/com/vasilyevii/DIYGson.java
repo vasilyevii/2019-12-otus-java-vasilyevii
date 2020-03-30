@@ -1,15 +1,17 @@
 package com.vasilyevii;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 class DIYGson {
 
     String toJson(Object obj) {
+
+        if (obj == null) {
+            return "null";
+        }
 
         StringBuilder json = new StringBuilder();
         serializeObject(obj, json, null);
@@ -28,12 +30,12 @@ class DIYGson {
 
         if (obj.getClass().isArray()) {
 
-            Object[] arr = (Object[]) obj;
+            int arrLength = Array.getLength(obj);
 
             json.append("[");
-            for (int i = 0; i < arr.length; i++) {
-                serializeObject(arr[i], json, null);
-                if (i < arr.length - 1) {
+            for (int i = 0; i < arrLength; i++) {
+                serializeObject(Array.get(obj, i), json, null);
+                if (i < arrLength - 1) {
                     json.append(",");
                 }
             }
@@ -68,12 +70,12 @@ class DIYGson {
             }
             json.append("}");
 
-        } else if (obj instanceof Byte || obj instanceof Character || obj instanceof Short || obj instanceof Integer
-                || obj instanceof Long || obj instanceof Float || obj instanceof Double || obj instanceof Boolean) {
+        } else if (obj instanceof Byte || obj instanceof Short || obj instanceof Integer || obj instanceof Long
+                || obj instanceof Float || obj instanceof Double || obj instanceof Boolean) {
 
             json.append(obj);
 
-        } else if (obj instanceof String) {
+        } else if (obj instanceof String || obj instanceof Character) {
 
             json.append("\"").append(obj).append("\"");
 
@@ -99,6 +101,12 @@ class DIYGson {
                     }
                 }
             }
+
+            int lastChar = json.length() - 1;
+            if (json.toString().charAt(lastChar) == ',') {
+                json.deleteCharAt(lastChar);
+            }
+
             json.append("}");
         }
     }
