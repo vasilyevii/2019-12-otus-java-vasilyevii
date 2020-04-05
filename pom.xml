@@ -27,6 +27,7 @@
         <module>hw05-Annotations</module>
         <module>hw06-ATM</module>
         <module>hw07-DepartmentATM</module>
+        <module>hw08-Serialization</module>
     </modules>
 
     <properties>
