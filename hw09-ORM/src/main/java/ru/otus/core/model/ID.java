@@ -1,4 +1,4 @@
-package com.vasilyevii;
+package ru.otus.core.model;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

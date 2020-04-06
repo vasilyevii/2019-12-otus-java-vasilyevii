@@ -1,4 +1,4 @@
-package com.vasilyevii.h2;
+package ru.otus.h2;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
