@@ -28,6 +28,7 @@
         <module>hw06-ATM</module>
         <module>hw07-DepartmentATM</module>
         <module>hw08-Serialization</module>
+        <module>hw09-ORM</module>
     </modules>
 
     <properties>
