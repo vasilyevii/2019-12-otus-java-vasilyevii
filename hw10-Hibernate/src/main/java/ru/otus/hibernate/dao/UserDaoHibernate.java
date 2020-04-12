@@ -40,8 +40,7 @@ public class UserDaoHibernate implements UserDao {
             if (user.getId() > 0) {
                 hibernateSession.merge(user);
             } else {
-//                hibernateSession.persist(user);
-                hibernateSession.save(user);
+                hibernateSession.persist(user);
             }
             return user.getId();
         } catch (Exception e) {
