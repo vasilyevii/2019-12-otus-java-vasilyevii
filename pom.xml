@@ -30,6 +30,7 @@
         <module>hw08-Serialization</module>
         <module>hw09-ORM</module>
         <module>hw10-Hibernate</module>
+        <module>hw11-CacheEngine</module>
     </modules>
 
     <properties>
