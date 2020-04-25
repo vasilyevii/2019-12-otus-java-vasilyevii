@@ -30,9 +30,7 @@ public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws IOException {
         Map<String, Object> paramsMap = new HashMap<>();
 
-        String hql = "FROM User";
-        Query query = dbServiceUser.getEntityManager().createQuery(hql);
-        List<User> usersList = query.getResultList();
+        List<User> usersList = dbServiceUser.findAll();
 
         paramsMap.put("usersList", usersList);
         response.setContentType("text/html");

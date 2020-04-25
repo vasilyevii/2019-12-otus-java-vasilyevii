@@ -9,6 +9,8 @@ import ru.otus.core.sessionmanager.SessionManager;
 import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
 import java.util.Optional;
 
 public class DbServiceUserHibernateImpl implements DBServiceUser {
@@ -94,5 +96,14 @@ public class DbServiceUserHibernateImpl implements DBServiceUser {
     @Override
     public EntityManager getEntityManager() {
         return entityManager;
+    }
+
+    @Override
+    public List findAll() {
+
+        String hql = "FROM User";
+        Query query = getEntityManager().createQuery(hql);
+        return query.getResultList();
+
     }
 }

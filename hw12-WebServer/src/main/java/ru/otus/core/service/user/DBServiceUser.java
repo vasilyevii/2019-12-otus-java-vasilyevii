@@ -5,6 +5,7 @@ import ru.otus.core.model.User;
 import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Optional;
 
 public interface DBServiceUser {
@@ -22,4 +23,6 @@ public interface DBServiceUser {
     public SessionManagerHibernate getSessionManager();
 
     public EntityManager getEntityManager();
+
+    public List<User> findAll();
 }

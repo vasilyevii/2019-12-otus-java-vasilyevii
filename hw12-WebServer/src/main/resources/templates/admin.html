@@ -12,14 +12,17 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(user)}
-                )
-                refreshUsersList();
+                    body: JSON.stringify(user)})
+                .then(response => response.json())
+                .then(user => refreshUsersList(JSON.stringify(user)));
             }
-            function refreshUsersList() {
+
+            function refreshUsersList(user) {
+                alert("CREATED: " + user);
                 location.reload();
                 return false;
             }
+
         </script>
     </head>
 
