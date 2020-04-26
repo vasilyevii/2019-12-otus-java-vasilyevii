@@ -8,7 +8,7 @@ import ru.otus.core.model.AddressDataSet;
 import ru.otus.core.model.PhoneDataSet;
 import ru.otus.core.model.User;
 import ru.otus.core.service.user.DBServiceUser;
-import ru.otus.core.service.user.DbServiceUserHibernateImpl;
+import ru.otus.core.service.user.DbServiceUserImpl;
 import ru.otus.hibernate.HibernateUtils;
 import ru.otus.hibernate.dao.UserDaoHibernate;
 import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
@@ -18,8 +18,6 @@ import ru.otus.services.TemplateProcessor;
 import ru.otus.services.TemplateProcessorImpl;
 import ru.otus.services.UserAuthService;
 import ru.otus.services.UserAuthServiceImpl;
-
-import javax.persistence.EntityManager;
 
 
 public class WebServerHomeWorkDemo {
@@ -32,9 +30,8 @@ public class WebServerHomeWorkDemo {
         SessionFactory sessionFactory = HibernateUtils.buildSessionFactory("hibernate.cfg.xml", User.class, AddressDataSet.class, PhoneDataSet.class);
 
         SessionManagerHibernate sessionManager = new SessionManagerHibernate(sessionFactory);
-        EntityManager entityManager = sessionFactory.createEntityManager();
         UserDao userDao = new UserDaoHibernate(sessionManager);
-        DBServiceUser dbServiceUser = new DbServiceUserHibernateImpl(userDao, sessionManager, entityManager);
+        DBServiceUser dbServiceUser = new DbServiceUserImpl(userDao);
         UserAuthService authService = new UserAuthServiceImpl(dbServiceUser);
 
         // admin user create

@@ -12,6 +12,7 @@ import ru.otus.hibernate.sessionmanager.DatabaseSessionHibernate;
 import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +66,21 @@ public class UserDaoHibernate implements UserDao {
             logger.error(e.getMessage(), e);
             throw new UserDaoException(e);
         }
+    }
+
+    @Override
+    public List<User> findAll() {
+        DatabaseSessionHibernate currentSession = sessionManager.getCurrentSession();
+        try {
+            String hql = "FROM User";
+            List<User> usersList = currentSession.getHibernateSession()
+                    .createQuery(hql, User.class)
+                    .getResultList();
+            return usersList;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return new ArrayList<>();
     }
 
     @Override

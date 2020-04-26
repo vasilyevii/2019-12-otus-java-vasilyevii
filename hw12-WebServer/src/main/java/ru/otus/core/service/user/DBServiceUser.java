@@ -14,15 +14,12 @@ public interface DBServiceUser {
 
     long updateUser(User user);
 
-    Optional<User> getUser(long id);
+    Optional<User> getUserByID(long id);
 
     Optional<User> getUserByName(String name);
 
+    public List<User> findAll();
+
     public UserDao getUserDao();
 
-    public SessionManagerHibernate getSessionManager();
-
-    public EntityManager getEntityManager();
-
-    public List<User> findAll();
 }

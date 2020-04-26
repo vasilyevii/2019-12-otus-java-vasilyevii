@@ -6,24 +6,18 @@ import ru.otus.core.dao.UserDao;
 import ru.otus.core.model.User;
 import ru.otus.core.service.DbServiceException;
 import ru.otus.core.sessionmanager.SessionManager;
-import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class DbServiceUserHibernateImpl implements DBServiceUser {
-    private static Logger logger = LoggerFactory.getLogger(DbServiceUserHibernateImpl.class);
+
+public class DbServiceUserImpl implements DBServiceUser {
+    private static Logger logger = LoggerFactory.getLogger(DbServiceUserImpl.class);
 
     private final UserDao userDao;
-    private final SessionManagerHibernate sessionManager;
-    private final EntityManager entityManager;
 
-    public DbServiceUserHibernateImpl(UserDao userDao, SessionManagerHibernate sessionManager, EntityManager entityManager) {
+    public DbServiceUserImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.sessionManager = sessionManager;
-        this.entityManager = entityManager;
     }
 
     @Override
@@ -50,7 +44,7 @@ public class DbServiceUserHibernateImpl implements DBServiceUser {
     }
 
     @Override
-    public Optional<User> getUser(long id) {
+    public Optional<User> getUserByID(long id) {
         try (SessionManager sessionManager = userDao.getSessionManager()) {
             sessionManager.beginSession();
             try {
@@ -84,26 +78,27 @@ public class DbServiceUserHibernateImpl implements DBServiceUser {
     }
 
     @Override
+    public List<User> findAll() {
+
+        try (SessionManager sessionManager = userDao.getSessionManager()) {
+            sessionManager.beginSession();
+            try {
+                List<User> userList = userDao.findAll();
+
+                logger.info("user list: {}", userList);
+                return userList;
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                sessionManager.rollbackSession();
+            }
+            return new ArrayList<>();
+        }
+
+    }
+
+    @Override
     public UserDao getUserDao() {
         return userDao;
     }
 
-    @Override
-    public SessionManagerHibernate getSessionManager() {
-        return sessionManager;
-    }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    @Override
-    public List findAll() {
-
-        String hql = "FROM User";
-        Query query = getEntityManager().createQuery(hql);
-        return query.getResultList();
-
-    }
 }
