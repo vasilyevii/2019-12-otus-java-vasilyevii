@@ -93,12 +93,6 @@ public class DbServiceUserImpl implements DBServiceUser {
             }
             return new ArrayList<>();
         }
-
-    }
-
-    @Override
-    public UserDao getUserDao() {
-        return userDao;
     }
 
 }
