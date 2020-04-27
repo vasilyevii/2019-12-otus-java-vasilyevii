@@ -14,7 +14,7 @@ public interface UserDao {
 
     Optional<User> findByName(String name);
 
-    public List<User> findAll();
+    List<User> findAll();
 
     SessionManager getSessionManager();
 

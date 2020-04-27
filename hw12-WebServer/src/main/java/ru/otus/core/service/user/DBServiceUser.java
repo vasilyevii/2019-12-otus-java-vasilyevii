@@ -2,9 +2,6 @@ package ru.otus.core.service.user;
 
 import ru.otus.core.dao.UserDao;
 import ru.otus.core.model.User;
-import ru.otus.hibernate.sessionmanager.SessionManagerHibernate;
-
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +15,8 @@ public interface DBServiceUser {
 
     Optional<User> getUserByName(String name);
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public UserDao getUserDao();
+    UserDao getUserDao();
 
 }

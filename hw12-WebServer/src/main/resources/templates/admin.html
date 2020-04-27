@@ -7,7 +7,7 @@
                 const userName = document.getElementById('userName').value;
                 const userPassword = document.getElementById('userPassword').value;
                 const user = {name: userName, password: userPassword};
-                fetch('api/user/create', {
+                fetch('api/user/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
