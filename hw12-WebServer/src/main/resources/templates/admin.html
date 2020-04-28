@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Админка</title>
+        <script>
+            function createNewUser() {
+
+                const userName = document.getElementById('userName').value;
+                const userPassword = document.getElementById('userPassword').value;
+                const user = {name: userName, password: userPassword};
+                fetch('api/user/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(user)})
+                .then(response => response.json())
+                .then(user => refreshUsersList(JSON.stringify(user)));
+            }
+
+            function refreshUsersList(user) {
+                alert("CREATED: " + user);
+                location.reload();
+                return false;
+            }
+
+        </script>
+    </head>
+
+    <body>
+
+        <h4>Create user</h4>
+        <label for="userName">Name:</label>
+        <input type="text" id="userName" value="vasya" placeholder="Введите имя">
+        <label for="userName">Password:</label>
+        <input type="text" id="userPassword" value="123" placeholder="Введите пароль">
+        <button onclick="createNewUser()">Create</button>
+
+        <h4>Users list</h4>
+        <button onclick="refreshUsersList()">Refresh</button>
+        <#list usersList as i>
+            <ul>${i?counter}: ${i}</ul>
+        </#list>
+
+    </body>
+</html>

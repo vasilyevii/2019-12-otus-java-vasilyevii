@@ -31,6 +31,7 @@
         <module>hw09-ORM</module>
         <module>hw10-Hibernate</module>
         <module>hw11-CacheEngine</module>
+        <module>hw12-WebServer</module>
     </modules>
 
     <properties>
