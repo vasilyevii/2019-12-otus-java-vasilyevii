@@ -32,6 +32,7 @@
         <module>hw10-Hibernate</module>
         <module>hw11-CacheEngine</module>
         <module>hw12-WebServer</module>
+        <module>hw13-DI</module>
     </modules>
 
     <properties>
