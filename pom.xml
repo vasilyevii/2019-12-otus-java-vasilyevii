@@ -33,6 +33,7 @@
         <module>hw11-CacheEngine</module>
         <module>hw12-WebServer</module>
         <module>hw13-DI</module>
+        <module>hw14-Concurrency</module>
     </modules>
 
     <properties>
