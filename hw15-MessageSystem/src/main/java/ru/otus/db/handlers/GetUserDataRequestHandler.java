@@ -10,7 +10,6 @@ import ru.otus.messagesystem.RequestHandler;
 
 import java.util.Optional;
 
-@Component
 public class GetUserDataRequestHandler implements RequestHandler {
     private final DBServiceUser dbServiceUser;
 

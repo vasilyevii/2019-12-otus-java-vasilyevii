@@ -2,6 +2,7 @@ package ru.otus.front;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import ru.otus.core.model.User;
 import ru.otus.messagesystem.Message;
 import ru.otus.messagesystem.MessageType;

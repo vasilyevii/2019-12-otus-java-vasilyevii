@@ -2,6 +2,8 @@ package ru.otus.front.handlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 import ru.otus.common.Serializers;
 import ru.otus.core.model.User;
 import ru.otus.front.FrontendService;
@@ -9,6 +11,7 @@ import ru.otus.messagesystem.Message;
 import ru.otus.messagesystem.RequestHandler;
 import java.util.Optional;
 import java.util.UUID;
+
 
 public class GetUserDataResponseHandler implements RequestHandler {
     private static final Logger logger = LoggerFactory.getLogger(GetUserDataResponseHandler.class);
