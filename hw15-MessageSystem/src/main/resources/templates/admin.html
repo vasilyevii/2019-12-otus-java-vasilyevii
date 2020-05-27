@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Админка</title>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script type="text/JavaScript">
+
+            function setConnection() {
+                stompClient = Stomp.over(new SockJS('/gs-guide-websocket'));
+                stompClient.connect({}, (frame) => {
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/topic/refreshUserList', (response) => {
+                        console.log('subscribe user: ' + JSON.parse(response.body).messageStr);
+                        location.reload();
+					});
+                });
+            }
+
+            function createNewUser() {
+
+                const userName = document.getElementById('userName').value;
+                const userPassword = document.getElementById('userPassword').value;
+                const user = JSON.stringify({name: userName, password: userPassword});
+
+                stompClient.send('/app/createUser', {}, user);
+                console.log('user: ' + user);
+            }
+
+        </script>
+</head>
+
+<body onload="setConnection();">
+
+    <h4>Create user</h4>
+    <label for="userName">Name:</label>
+    <input type="text" id="userName" value="vasya" placeholder="Введите имя">
+    <label for="userName">Password:</label>
+    <input type="text" id="userPassword" value="123" placeholder="Введите пароль">
+    <button onclick="createNewUser()">Create</button>
+
+    <h4>Users list</h4>
+
+    <table class="users">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Password</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.name}">John Doe</td>
+            <td th:text="${user.password}">123</td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
